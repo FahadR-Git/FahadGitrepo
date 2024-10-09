@@ -1,0 +1,17 @@
+---
+- name: Add Firewall Rules
+  ansible.posix.firewalld:
+      service: http
+      permanent: true
+      immediate: true
+      state: enabled
+
+- name: Reload Firewall
+  systemd:
+    name: firewalld
+    state: reloaded
+
+- name: Copy Index File To Apache Directory
+  copy:
+    src: files/index.html
+    dest: /var/www/html/
